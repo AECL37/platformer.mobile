@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+<canvas></canvas>
+<div class="buttons">
+  <div class="row-left">
+    <button ontouchstart="playerMoveLeft()" ontouchend="playerStopXAxis()" onmousedown="playerMoveLeft()" onmouseup="playerStopXAxis()">←</button>
+    <button ontouchstart="playerMoveRight()" ontouchend="playerStopXAxis()" onmousedown="playerMoveRight()" onmouseup="playerStopXAxis()">→</button>
+  </div>
+  <div class="row-right">
+      <div class="interact-buttons">
+        <button style="font-size:.7rem" ontouchstart="playerAttack()" ontouchend="stopInteractingLeftRow()" onmousedown="playerAttack()" onmouseup="stopInteractingLeftRow()">==||=====></button>
+        <button ontouchstart="playerInteract()" ontouchend="stopInteractingLeftRow()" onmousedown="playerInteract()" onmouseup="stopInteractingLeftRow()">E</button>
+      </div>
+      <button ontouchstart="playerJump()" ontouchend="stopInteractingLeftRow()" onmousedown="playerJump()" onmouseup="stopInteractingLeftRow()">↑</button>
+  </div>
+</div>
+<button onclick="toggleConsole()" class="console-button">Console</button>
+<div class="console-box">
+<div class="console" id="console">Welcome to the console<br></div>
+<input class="console-text" type="text" id="consoleInput" placeholder="Console Commands">
+<p class="console-text" id="x"></p>
+</div>
+
+
+<script src="js/assets.js"></script>
+<script src="js/classes/objects.js"></script>
+<script src="index.js"></script>
+
+</body>
+</html>
