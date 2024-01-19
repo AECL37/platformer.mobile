@@ -5,8 +5,120 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link rel="stylesheet" href="index.css">
 </head>
+<body onload="startGame();loaded();">
 
-<body>
+  <header id="playerRecords">
+    <h1>Your Records</h1>
+    <h2>Time Played</h2>
+    <p id="record-playtime">0</p>
+    <h2>Number of Deaths:</h2>
+    <ul>
+      <h3>Crushed by Obstacles</h3>
+      <p id="record-deathbyobstacles">0</p>
+      <h3>Fell to Death</h3>
+      <p id="record-deathbyfalling">0</p>
+      <h3>Total</h3>
+      <p id="record-totaldeaths"></p>
+    </ul>
+    <h2>Number of Wins</h2>
+    <p id="record-totalwins">0</p>
+    <h2>Highest Peak</h2>
+    <p id="highestpeak">0m</p>
+    <h2>Total Elevations:</h2>
+    <ul>
+      <h3>Total Highest Elevation</h3>
+      <p id="record-totalheights">0m</p>
+      <h3>Total Elevations</h3>
+      <p id="record-totalelevations">0m</p>
+    </ul>
+    <h2>Shortest Time to Finish</h2>
+    <p id="record-shortesttimetofinish">0</p>
+    <h2>Total Obstacle Destruction</h2>
+    <p id="record-obstaclesdetroyed">0</p>
+    <h2>Collected Rects</h2>
+    <p id="record-rectscollected">0</p>
+    <h2>Rects Spended</h2>
+    <p id="record-rectsspend">0</p>
+    <h2>Damage Taken</h2>
+    <p id="record-damagetaken">0</p>
+    <h2>Heals Made</h2>
+    <p id="record-healstaken">0</p>
+    <h2>Random Facts:</h2>
+    <ul>
+      <h3>Total Jumps</h3>
+      <p id="record-totaljumps">0</p>
+      <h3>Total Keys Pressed</h3>
+      <p id="record-totalkeyspressed">0</p>
+    </ul>
+  </header>
+
+  <header id="gameover">
+    GAME OVER?
+    <button onclick="startGame()">Restart?</button>
+    <button onclick="togglePlayerStats()">Your Stats</button>
+  </header>
+  <header id=""></header>
+  <header id="win">
+    Congrats.
+    <button data-value="Why Combat Warriors is the best game?" onclick="startGame()">Play Again?</button>
+    <button onclick="togglePlayerStats()">Your Stats</button>
+  </header>
+  <div id="records">
+    <h1>Your Play Report</h1>
+    <h2>Time Played</h2>
+    <p id="playtime">0</p>
+    <h2>Number of Deaths:</h2>
+    <ul>
+      <h3>Crushed by Obstacles</h3>
+      <p id="deathbyobstacles">0</p>
+      <h3>Fell to Death</h3>
+      <p id="deathbyfalling">0</p>
+      <h3>Total</h3>
+      <p id="totaldeaths"></p>
+    </ul>
+    <h2>Number of Wins</h2>
+    <p id="totalwins">0</p>
+    <h2>Total Elevations:</h2>
+    <ul>
+      <h3>Highest Elevation</h3>
+      <p id="totalheights">0m</p>
+      <h3>Total Elevations</h3>
+      <p id="totalelevations">0m</p>
+    </ul>
+    <h2>Total Obstacle Destruction</h2>
+    <p id="obstaclesdetroyed">0</p>
+    <h2>Collected Rects</h2>
+    <p id="rectscollected">0</p>
+    <h2>Rects Spended</h2>
+    <p id="rectsspend">0</p>
+    <h2>Damage Taken</h2>
+    <p id="damagetaken">0</p>
+    <h2>Heals Made</h2>
+    <p id="healstaken">0</p>
+    <h2>Random Facts:</h2>
+    <ul>
+      <h3>Total Jumps</h3>
+      <p id="totaljumps">0</p>
+      <h3>Total Keys Pressed</h3>
+      <p id="totalkeyspressed">0</p>
+    </ul>
+  </div>
+  <header class="info-row">
+    <p>                    
+      <div class="exp-bar">
+      <span id="cur-health" data-value="100">0 / 0</span>
+      <progress id="health" value="100" max="100"></progress>
+      </div>
+      <p id="damageEffect">-</p>
+      <p id="healingEffect">✚</p>
+    </p>
+    <p>Rects: <span id="rects">100</span>&nbsp;</p>
+    <p id="minusEffect">-</p>
+    <p id="addEffect">✚</p>
+    <span id="warning">Warning: Going outside while spawning will result in death.<br> <span id="estimatedTime">0</span></span>
+    <p>&nbsp;Reach <span id="height"></span></p>
+  </header>
+  <img src="02-45-27-186_512.webp" alt="Loading" id="loader">
 <canvas></canvas>
 <div class="buttons">
   <div class="row-left">
@@ -16,11 +128,19 @@
   <div class="row-right">
       <div class="interact-buttons">
         <button style="font-size:.7rem" ontouchstart="playerAttack()" ontouchend="stopInteractingLeftRow()" onmousedown="playerAttack()" onmouseup="stopInteractingLeftRow()">==||=====></button>
+        <button style="font-size:.7rem" ontouchstart="playerShoot()" ontouchend="stopInteractingLeftRow()" onmousedown="playerShoot()" onmouseup="stopInteractingLeftRow()">[ ] ====()</button>
+      </div>
+        <div class="interact-buttons">
+        <button ontouchstart="placeBlock()" ontouchend="stopInteractingLeftRow()" onmousedown="placeBlock()" onmouseup="stopInteractingLeftRow()">[ ]</button>
         <button ontouchstart="playerInteract()" ontouchend="stopInteractingLeftRow()" onmousedown="playerInteract()" onmouseup="stopInteractingLeftRow()">E</button>
       </div>
-      <button ontouchstart="playerJump()" ontouchend="stopInteractingLeftRow()" onmousedown="playerJump()" onmouseup="stopInteractingLeftRow()">↑</button>
+      <div class="interact-buttons">
+        <button ontouchstart="playerJump()" ontouchend="stopInteractingLeftRow()" onmousedown="playerJump()" onmouseup="stopInteractingLeftRow()">↑</button>
+        <button ontouchstart="playerDown()" ontouchend="stopInteractingLeftRow()" onmousedown="playerDown()" onmouseup="stopInteractingLeftRow()">↓</button>
+      </div>
   </div>
 </div>
+<button onclick="togglePlayerStats()" class="console-text">Your Stats</button>
 <button onclick="toggleConsole()" class="console-button">Console</button>
 <div class="console-box">
 <div class="console" id="console">Welcome to the console<br></div>
@@ -28,7 +148,7 @@
 <p class="console-text" id="x"></p>
 </div>
 
-
+<script src="js/localStorage.js"></script>
 <script src="js/assets.js"></script>
 <script src="js/classes/objects.js"></script>
 <script src="index.js"></script>
