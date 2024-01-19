@@ -1,11 +1,19 @@
 body {
-    touch-action: manipulate;
-    -webkit-touch-action: manipulate;
+  touch-action: manipulate;
+  -webkit-touch-action: manipulate;
+  overflow: auto;
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 canvas {
     position: relative;
     border: 1px solid #e1e1e1;
+    background-color: black;
     left: 50%;
     transform: translate(-50%, 0);
   }
@@ -49,16 +57,22 @@ canvas {
   }
   
   .buttons button {
+    touch-action: manipulate;
+    -webkit-touch-action: manipulate;
     box-sizing: border-box;
     background-color: #fafafa;
     margin: 5px;
-    width: 90px;
-    height: 90px;
-    border-radius: 10px;
+    width: 80px;
+    height: 80px;
+    border-radius: 15px;
     border: 7px inset #f1f1f1;
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
   /* Buttons end */
+
+  .info-row  {
+    display: flex;
+  }
   
   /* console */
   .console-button {
@@ -83,3 +97,151 @@ canvas {
     display: none;
   }
   /* console end */
+
+  #gameover, #win {
+    left:0;
+    top:0;
+    width: 100%;
+    height: 125%;
+    margin: 0;
+    padding: 0;
+    display: none;
+    position: absolute;
+    font-size: 15vw;
+    z-index: 2;
+    background-color: grey;
+    animation: fade-in 2s;
+    animation-fill-mode: forwards 1;
+  }
+
+  #gameover button, #win button {
+    background-color: #359e4f;
+    border-radius: 15px;
+    position: relative;
+    top: -11vw;
+  }
+
+@keyframes fade-in {
+    1%   {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+/* healthbar */
+progress::-webkit-progress-bar {
+    height: 25px;
+    background-color: #6e7763;
+    border-radius: 15px;
+    border: 0;
+}
+progress {
+    height: 25px;
+    background-color: #6e7763;
+    border-radius: 15px;
+    border: 0;
+    text-align: center;
+}
+progress::-webkit-progress-value {
+    background-color: #359e4f;
+    border-radius: 15px;
+    border: 0;
+    transition: all .5s ease-in-out;
+}
+.exp-bar span {
+    position: absolute;
+    display: inline-block;
+    color: #e4e4e4;
+    text-align: center;
+    top: 6.5%;
+    transform: translate(75%, 0%);
+    overflow: visible;
+}
+
+.exp-bar {
+    top: 20px;
+    text-align: center;
+    position: relative;
+    width: auto;
+    height: auto;
+    z-index: 1;
+}
+/* END healthbar */
+
+#damageEffect:not(.damageEffect), #healingEffect:not(.healingEffect) {
+  display: none;
+}
+
+#addEffect, #minusEffect {
+  opacity: 0;
+}
+
+.addEffect {
+  display: block;
+  position: absolute;
+  left: 170px;
+  color: #359e4f;
+  animation: healEffect 2s;
+  animation-fill-mode: forwards 1;
+}
+
+.minusEffect {
+  display: block;
+  font-weight: 900;
+  position: absolute;
+  left: 170px;
+  color: #c01d1d;
+  animation: healEffect 2s;
+  animation-fill-mode: forwards 1;
+}
+
+.healingEffect {
+  display: block;
+  position: absolute;
+  color: #359e4f;
+  animation: healEffect 2s;
+  animation-fill-mode: forwards 1;
+}
+
+.damageEffect {
+  display: block;
+  font-weight: 900;
+  position: absolute;
+  color: #c01d1d;
+  animation: healEffect 2s;
+  animation-fill-mode: forwards 1;
+}
+
+@keyframes healEffect {
+  0% {opacity: 0; top: 0;}
+  50% {opacity: 1;}
+  60% {top: -50px;}
+  90% {opacity: 0.5;top: -50%;}
+  100% {opacity: 0;display: none;}
+}
+
+#records {
+  display: none;
+  position: absolute;
+  top: 24vw;
+  font-size: .75rem;
+  z-index: 2;
+  animation: fade-in 2s;
+  animation-fill-mode: forwards 1;
+}
+
+#playerRecords {
+  overflow-y: scroll;
+  background-color: #6e7763;
+  display: none;
+  opacity: 0;
+  position: absolute;
+  top: 125px;
+  font-size: .75rem;
+  z-index: 3;
+  transition: all 2s;
+  right: 0;
+  height: 300px;
+}
+
+#loader {
+  position: absolute;
+}
